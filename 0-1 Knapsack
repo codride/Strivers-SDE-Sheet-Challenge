@@ -1,0 +1,25 @@
+    int dp[1005][1005];
+    
+    int func(int i,int wt_left, int val[], int wt[])
+    {  
+        //Brute_force recursion then dp
+    
+    	if(wt_left==0) return 0;
+    	if(i<0) return 0;
+    	
+    	if(dp[i][wt_left]!=-1) return dp[i][wt_left];
+    	
+    	int ans=func(i-1,wt_left, val, wt);
+    
+    	if(wt_left-wt[i]>=0)
+    	ans=max(ans, func(i-1,wt_left-wt[i], val, wt) + val[i] );
+    	
+    	return dp[i][wt_left]=ans;
+
+    }
+
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        memset(dp,-1,sizeof(dp));
+        return func(n-1,W, val, wt);
+    }
